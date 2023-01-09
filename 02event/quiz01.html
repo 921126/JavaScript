@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <select id = "a">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
+
+    <input type="text" id="txt">
+    <div id="dbc">db클릭이벤트</div>
+
+    <script>
+        //1. 위에있는 select 와 input태그에 원하는 방법으로 change 이벤트걸기
+        //2. div에는 dbclick이벤트
+        var a = document.getElementById("a");
+        a.onchange = function(){
+            console.log(this);
+        }
+
+        var b = document.getElementById("txt");
+        b.onchange = function(){
+            console.log("입력");
+        }
+
+        var c = document.getElementById("dbc");
+        c.ondblclick = function(){
+            document.body.style.backgroundColor = "red";
+        }
+
+    </script>
+</body>
+</html>

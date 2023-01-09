@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>메인화면</h1>
+    <script>
+        
+        window.onload = function(){
+
+
+            if(document.cookie.indexOf("mainPopup") != -1){ //있다면
+                console.log("쿠키있음");
+            }else{
+                window.open("popup.html", "todayPopup", "width = 300px, heigth = 300px");
+            }
+        }
+    </script>
+
+</body>
+</html>

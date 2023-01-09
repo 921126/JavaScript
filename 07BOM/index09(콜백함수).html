@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3>콜백함수</h3>
+
+
+    <script>
+        //js특징 1. 매개변수에 함수 사용이 가능하다.
+        //매개변수로 사용되는 success와 fail은 함수이다.
+        function geolocation(success, fail){
+
+            //처리... 몇초가 걸리는지?
+            setTimeout(function() {
+
+            }, 5000);
+
+        }
+
+        geolocation(success,fail);
+
+        function success(result){
+            console.log(result); //실행도니는데 5초가 걸리고, 성공시 result 변수 반환
+        }
+
+        function fail(result){
+            console.log(result);
+        }
+
+    </script>
+
+</body>
+</html>

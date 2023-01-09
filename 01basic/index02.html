@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        var num1 = "10"; //문자열
+        var num2 = '10'; //문자열
+        var num3 = 10;   //숫자
+
+        //변수의 변경 -> 타입을 지키지 않아도 된다. 
+        num1 = 3.14;
+        num2 = 10;
+        num3 = '10';
+
+        //숫자 + 숫자 = 숫자 이고, 숫자+ 문자 = 문자이다. (자바와 동일)
+        var result = num1 + num2 + num3;
+        console.log(result);
+        console.log(10 + 3.14);
+        console.log(20 + '20');
+        console.log(10 + undefined); //잘못된 숫자연산에서는 NaN이 나온다. 
+
+        //데이터타입 number, str, boolean, undefined, null
+        var bool = true;
+        console.log(bool);
+        
+        //undefined - 초기값을 지정하지 않으면 나타난다.
+        var un;
+        console.log(un);
+
+        //null 초기값을 지정했지만, 값이 존재하지 않을 때 출력된다.
+        var tag = document.getElementById("a");
+        console.log(tag);
+
+
+        //키워드- typeof
+        console.log(typeof num1);
+        console.log(typeof num3);
+        console.log(typeof bool);
+        console.log(typeof un);
+        console.log(typeof tag);
+
+    </script>
+</body>
+</html>

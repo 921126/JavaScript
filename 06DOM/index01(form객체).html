@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="list.board" name="actionForm">
+        <h3>가입창</h3>
+        이름: <input type="text" name="name"><br>
+        번호: <input type="text" name="phone" onblur="phoneFunc(event)"><br>
+        분야:
+        <input type="checkbox" name="check">CSS
+        <input type="checkbox" name="check">JS
+        <input type="checkbox" name="check">HTML
+
+        <input type="submit" value="submit">
+    </form>
+
+    <script>
+        /*
+        1. form태그는 document의 하위이기 때문에 form의 name으로 접근이 가능하다.
+        2. input은 form의 하위태그이므로 document.폼명.태그name으로 접근이 가능하다.
+        */
+
+        console.log(document.actionForm);
+        console.log(document.actionForm.name);
+        console.log(document.actionForm.phone);
+
+        var submit = document.actionForm.querySelector("input[type='submit']");
+        submit.onclick = function(){
+
+            event.preventDefault(); //서브밋 고유 이벤트 삭제
+
+            if(document.actionForm.name.value.length <= 0){ //이름이 0글자 이하라면
+                alert("이름은 필수입니다.");
+                document.actionForm.name.focus(); //포커싱
+                return;
+            }else if(document.actionForm.phone.value.length != 11){
+                alert("핸드폰 번호 - 없이 11글자입니다.");
+                document.actionForm.phone.focus();
+                return;
+            }else{
+                var cnt = 0;
+                var  check = document.actionForm.check;
+                for(var i =0; i < check.length; i++){
+                    if(check[i].checked){
+                        cnt++;
+                    }
+                }
+
+                if(cnt == 0){
+                    alert("적어도 하나의 분야를 선택하세요.");
+                    return;
+                }
+            }
+            document.actionForm.submit(); //폼 submit
+
+        }
+
+        function phoneFunc(e){
+            
+            e.target.value = e.target.value.replaceAll("-","");
+
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button onclick="ajax()">ajax 요청</button>
+
+    <script>
+
+        /*
+
+        비동기 - 웹페이지의 이동없이 데이터만 주고받는 기술
+        fetch()를 호출하면 promise를 반환한다.
+
+        Promise
+        - pending : 수행중
+        - fullfiled : 성공
+        - reject : 실패
+
+        1. 리턴이 promise라면 then(콜백함수)로 결과를 받을 수 있다.
+
+        */
+
+
+        function ajax() {
+
+            // var result = fetch("hi.txt"); //같은 경로에 있는 파일은 상대경로로
+
+            // // console.log(result); > 결과 promise로 출력됨
+
+            // result.then(function(response) {
+            //     console.log(response); //응답객체 
+            // });
+
+
+            //에러코드 404 클라 잘못 500 서버 잘못 200 성공  
+            
+            /*
+            fetch("hi.txt").then(function(response) {
+                // console.log(response);
+
+                if(response.status != 200){
+                    alert("통신 에러가 발생했습니다.");
+                    return;
+                }
+
+                //var a = response.text();
+                //console.log(a); 프로미스
+
+                //txt파일에 담겨진 실제 내용 가져오기 비동기 2번사용
+                response.text().then(function(data) {
+                    console.log(data);
+                });
+
+            });
+            */
+            
+            /*
+            //콜백에 리턴을 걸면 fetch가 다시 promise를 반환
+            fetch("hi.txt").then(function(res){
+                
+                return res.text(); //리턴값은 fetch의 리턴값을 돌아간다.
+                
+            }).then(function(data) {
+                
+                console.log(data); //txt 파일의 내용 출력
+                
+            });
+            */
+
+
+            //비동기방식에서는 순서를 보장하지 않는다.
+            console.log(1);
+            
+            fetch("hi.txt").then(function(res){
+                return res.text();
+            }).then(function(data) {
+                console.log(2);
+            });
+            console.log(3);
+
+        }
+
+    </script>
+
+
+
+
+</body>
+</html>

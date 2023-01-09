@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .func1{ width: 300px; height: 300px; background-color: red;}
+        .func2{ width: 200px; height: 200px; background-color: blue;}
+        .func3{ width: 100px; height: 100px; background-color: yellow;}
+    </style>
+</head>
+
+<body>
+
+    <div class="func1">
+        <div class="func2">
+            <div class="func3">막내자식</div>
+        </div>
+    </div>
+
+    <script>
+
+        // /*
+        // DOM에서 이벤트 동작방식은 기본으로 버블링이다.
+        // 버블링 - 상위 태그, 하위태그 모두에 이벤트가 있을 때 하위 -> 상위 방향으로 전파되는 특징
+        // 3번 클릭시 3 -> 2 -> 1 형식으로 실행된다.
+        // */
+
+        // var func1 = document.querySelector(".func1");
+        // func1.onclick = function(){ alert("func1"); }
+
+        // var func2 = document.querySelector(".func2");
+        // func2.onclick = function(){ 
+        //     alert("func2");
+        //     event.stopPropagation(); //이벤트 버블링 중단
+        // }
+
+        // var func3 = document.querySelector(".func3");
+        // func3.onclick = function(){ alert("func3"); }
+    
+    
+        /*
+        이벤트 캡처링 -> 상위, 하위태그 모두에 이벤트가 있을때 상위 -> 하위로 전파되는 특징이다.
+        addEventListener 방식으로만 구현 가능하다.
+        */
+            
+        var func1 = document.querySelector(".func1");
+        var func2 = document.querySelector(".func2");
+        var func3 = document.querySelector(".func3");
+
+        func1.addEventListener("click", function() {
+            alert("func1");
+        }, true);
+
+        func2.addEventListener("click", function() {
+            event.stopPropagation(); //d이벤트 챕처링 중단
+            alert("func2");
+        }, true);
+
+        func3.addEventListener("click", function() {
+            alert("func3");
+        }, true);
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>step1</h1>
+    <h3>input은 지우는게 아니라 display로 제어(안보이게 숨기기)</h3>
+    <h3>할일 목록 만들기</h3>
+    <button class="allDel" onclick="delAll()">전체삭제하기</button>
+    <div class="username"></div>
+
+    <div class="name">
+        <input type="text" placeholder="이름" class="nameInput">
+        <button class="nameBtn">확인</button>
+    </div>
+
+    <div>
+        <input type="text" placeholder="할 일을 입력하세요" class="content">
+        <button class="contentBtn">등록</button>
+    </div>
+    
+
+    <h3>할일 목록</h3>
+    <ul class="list">
+        <!-- <li>할일</li> -->
+    </ul>
+
+    <script>
+
+        var userName = document.querySelector(".nameInput");
+        var nameBtn = document.querySelector(".nameBtn");
+        //입력된 정보 출력하기
+        nameBtn.onclick = function(){
+            var name = document.querySelector(".username");
+            name.innerHTML = userName.value + "님 환영합니다.";
+
+            document.querySelector(".name").style.visibility = "hidden";
+        }
+
+        //입력된 할일 가져오기
+        var contentBtn = document.querySelector(".contentBtn");
+        var content = document.querySelector(".content");
+
+        var list = document.querySelector(".list");
+        contentBtn.onclick = function(){
+
+            var li = document.createElement("li");
+            li.innerHTML = content.value;
+            content.value ="";
+            //li.innerHTML = content.value + '<button onclick="del(this)">삭제(더블클릭)</button>';
+
+            var btn = document.createElement("button");
+            btn.innerHTML = "더블클릭삭제";
+            btn.ondblclick = del;
+
+            var btn2 = document.createElement("button");
+            btn2.innerHTML = "위";
+            btn2.onclick = up;
+
+            var btn3 = document.createElement("button");
+            btn3.innerHTML = "아래";
+            btn3.onclick = down;
+
+            li.appendChild(btn);
+            li.appendChild(btn2);
+            li.appendChild(btn3);
+
+            list.appendChild(li);
+            
+
+        }
+
+        //삭제하기
+        function del(){
+            this.parentElement.remove();
+        }
+
+        function up(){
+
+            var current = this.parentElement;
+            var previous = current.previousElementSibling;
+
+            if(previous == null){
+                alert("첫번째 행입니다.");
+                return;
+            }
+
+            var list = document.querySelector(".list");
+            list.insertBefore(current, previous);
+
+        }
+
+        function down(){
+                // console.log(this.parentElement);
+                var current = this.parentElement; //버튼의 상위 행 tr
+                var next = current.nextElementSibling; //tr다음 행 
+
+                if(next == null){
+                    alert("마지막 행입니다.");
+                    return; //함수종료
+                }
+
+                var list = document.querySelector(".list");
+                list.insertBefore(next,current); //current 앞에 next를 넣는다.
+        }
+
+        function delAll(){
+            var list = document.querySelector(".list");
+
+            while(list.firstElementChild != null){
+                list.removeChild(list.firstElementChild);
+            }
+        }
+
+
+    </script>
+</body>
+</html>

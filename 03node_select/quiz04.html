@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>JS 카운트 만들기 - this, innerHTML, value 속성을 사용하면 된다.</h3>
+
+    <input type="number" value="0">
+    <button onclick="calc(this)">감소</button>
+    <button onclick="calc(this)">증가</button>
+
+    <script>
+
+        var number = document.querySelector("input");
+
+        
+        function calc(btn){
+
+            if(btn.innerHTML == "감소"){
+                number.value--;
+                if(number.value <= 0){
+                    alert("0감소불가");
+                    return;
+                }
+            }else if(btn.innerHTML =="증가"){
+                number.value++;
+            }
+        }
+
+    </script>
+
+</body>
+</html>

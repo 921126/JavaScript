@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3>사용자가 버튼을 클릭하면 input태그의 공백여부, 체크박스의 체크여부를 확인</h3>
+
+    아이디: <input type="input" id="id">
+    기억하기 : <input type="checkbox" class="remember">
+    <button id="btn">확인</button>
+
+    <script>
+        var btn = document.getElementById("btn");
+        var id = document.getElementById("id");
+        // var reme = document.querySelector(".remember");
+        var reme = document.getElementsByClassName("remember")[0];
+
+        btn.onclick = function(){
+
+            if(id.value == false){
+                console.log("텅비였슈");
+            }else{
+                console.log(id.value);
+            }
+
+            if(reme.checked == false){
+                console.log("선택안했슈");
+            }else{
+                console.log(reme.checked);
+            }
+        }
+    </script>
+
+    <hr>
+
+    <h3>인라인 이벤트 - 사용자가 체크박스를 클릭할때마다 경고창에 value값을 출력</h3>
+    <input type="checkbox" value="1" onclick="function aaa(){alert(value + '번 조항')} aaa()">조항1
+    <input type="checkbox" value="2" onclick="check(this)">조항2
+    <input type="checkbox" value="3" onclick="check(this)">조항3
+
+    <script>
+        function check(tag){
+            if(tag.checked == true){
+                alert(tag.value + "조항선택")
+            }
+        }
+    </script>
+
+</body>
+</html>

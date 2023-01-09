@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <ul class="pageNation">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+
+
+
+    <script>
+
+        //key
+        var key = "asqTNasaySfyD%2FtEFrIfkn1ShvwUv%2BbNpWCcYl93pg%2BBqu4Sg5mbblQsdt5BVVPZvHKIEJSFfIsa1xjFowdwZQ%3D%3D";
+
+        var pageNation = document.querySelector(".pageNation");
+        pageNation.onclick = function(){
+
+            if(event.target.tagName != "LI") return;
+            ajax(event.target.innerHTML); //데이터호출 (사용자가 클릭한 페이지 번호)
+
+        }
+
+
+        function ajax(page){
+            //1. 요청주소를 가지고와서 연결
+            fetch("http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst?serviceKey=" +
+                   key +
+                   "&pageNo="+ page +"&numOfRows=10&dataType=JSON&CURRENT_DATE=2023010600&HOUR=24&COURSE_ID=1")
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(data) {
+                // console.log(data.response.body.items.item); //데이터 접근 확인
+    
+                //변수 선언하여 데이터접근하여 가지고 나오기
+                var arr = data.response.body.items.item;
+                for(var i = 0; i < arr.length; i++){
+                    console.log(arr[i]);
+                }
+            });
+        }
+
+        (function() {
+            ajax(1);
+        })();
+    </script>
+
+</body>
+</html>

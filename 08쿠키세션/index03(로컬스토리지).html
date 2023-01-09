@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3>로컬스토리지 사용하기</h3>
+
+    <button onclick="createSession()">세션만들기</button>
+    <button onclick="removeSession()">세션삭제하기</button>
+
+    <script>
+
+        /*
+        localStorge와 sessionStorage는 브라우저의 키 = 값 형태로 데이터를 저장하는 브라우저 측의 세션이다.
+        
+        localSorage는 브라우저를 종료하더라도 지속된다. (영구)
+        sessionStorage는 브라우저를 종료하면 사라진다.
+
+        쿠키와 다른점은?
+        - 쿠키는 서버간 전송이 가능하다.
+        - 스토리지는 브라우저에서만 사용할 수 있다.
+        */
+
+        function createSession (){
+
+            //스토리지에는 순수한 문자열만 저장된다.
+            //obj를 저장하려면 JSON.stringfiy()로 치환해서 저장하면 좋다.
+
+            //저장
+            localStorage.setItem("aaa", "홍길동");
+            
+            localStorage.setItem("bbb", JSON.stringify([1,2,3]));
+
+            //사용
+            var aaa = localStorage.getItem("aaa");
+            var bbb = localStorage.getItem("bbb");
+
+            console.log(aaa);
+            //console.log(bbb);
+
+            console.log(JSON.parse(bbb)); //원본데이터 타입 유지방법
+
+        }
+
+
+        function removeSession (){
+            localStorage.removeItem("aaa"); //삭제
+        }
+
+
+    </script>
+</body>
+</html>

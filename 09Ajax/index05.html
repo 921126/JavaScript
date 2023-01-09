@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <!-- 카카오SDK로드 -->
+    <script src="js/kakao.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- 로그인버튼 -->
+    <a id="kakao-login-btn" href="javascript:loginWithKakao()">
+        <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" alt="카카오 로그인 버튼" />
+    </a>
+
+
+    <script>
+
+        //1. 카카오 SDK초기화
+        var key = '489f9c2c1cc5f4f34a0852cfec1ae0b7';
+        Kakao.init(key);
+        console.log(Kakao.isInitialized()); //초기화 여부 확인 true시 성공
+
+        //2. 로그인 버튼 선택시 로그인 후 연결
+        function loginWithKakao() {
+            Kakao.Auth.authorize({
+                redirectUri: 'http://127.0.0.1:5501/09Ajax/index05.html',
+            });
+        }
+
+        //3. 인가code값 가져오기
+        var urlSerch = new URLSearchParams(location.search);
+        // console.log(urlSerch.get("code"));
+
+        if (urlSerch.get("code") != null) { //로그인에 성공했다면
+            ajax();
+        }
+
+        //4. 토큰발급 요청(Post방식, 폼형식)
+        function ajax() {
+
+            //JSON 형식의 POST 요청
+            /*
+            var data = {
+                
+                grant_type : "authorization_code",
+                client_id : "145876027247bd800c7b07b59b354432", //추후 코드숨기기 필요
+                redirect_uri : "http://127.0.0.1:5501/09Ajax/index05.html",
+                code : urlSerch.get("code")
+                
+            }
+            
+            fetch("https://kauth.kakao.com/oauth/token", {
+                method : "POST",
+                headers : {
+                    "Content-Type": "application/json",
+                },
+                body : JSON.stringify(data)
+            })
+            .then(function(res) {
+                console.log(res);
+            });
+            */
+
+            //form형식의 post 요청
+            //formData 객체이용 or 문자열
+
+            var url = "http://127.0.0.1:5501/09Ajax/index05.html";
+            var data = "grant_type=authorization_code" +
+                "&client_id=145876027247bd800c7b07b59b354432" + //본인의 restapi키
+                "&redirect_uri=" + url +
+                "&code=" + urlSerch.get("code");
+
+
+            fetch("https://kauth.kakao.com/oauth/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: data
+            })
+                .then(function (res) {
+                    return res.json(); //json으로 변환
+                })
+                .then(function (data) {
+                    console.log(data);
+                    //예를 들어 sessionStorage or cookie 저장
+                    sessionStorage.setItem("access_token", data.access_token);
+
+                    //카카오 API함수
+                    Kakao.Auth.setAccessToken(data.access_token);
+
+                    //토큰을 발급받고 사용자 정보 받아오기 호출
+                    requestUserInfo();
+            });
+        }
+
+        //5. 사용자 정보 받아오기
+
+        function requestUserInfo(){
+
+            Kakao.API.request({
+                url: '/v2/user/me',
+            })
+            .then(function (res) {
+                console.log(res);
+                console.log(res.kakao_account.email);   //사용자 이메일
+                console.log(res.kakao_account.profile.nickname); //사용자 닉네임
+                console.log(res.kakao_account.profile.profile_image_url); //사용자 프로필
+
+                //해당 정보를 가지고, 데이터베이스에서 조회 or 로그인 하는 작업으로 연결
+                //처리하는 페이지로 이동
+                sessionStorage.setItem("info", JSON.stringify({id : res.kakao_account.email,
+                                                               nick : res.kakao_account.profile.nickname }));
+                location.href = "index06.html";
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+
+
+    </script>
+
+</body>
+
+</html>
